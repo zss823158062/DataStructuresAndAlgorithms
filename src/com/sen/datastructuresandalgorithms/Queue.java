@@ -1,6 +1,4 @@
-package com.sen.DataStructuresAndAlgorithms;
-
-import javafx.geometry.VPos;
+package com.sen.datastructuresandalgorithms;
 
 /**
  * @ClassName Queue

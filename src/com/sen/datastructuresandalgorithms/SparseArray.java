@@ -1,4 +1,4 @@
-package com.sen.DataStructuresAndAlgorithms;
+package com.sen.datastructuresandalgorithms;
 
 import java.io.*;
 
