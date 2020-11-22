@@ -1,8 +1,6 @@
 package com.sen.datastructuresandalgorithms.linkedlist;
 
-import sun.reflect.generics.tree.VoidDescriptor;
-
-import java.util.zip.Inflater;
+import java.util.Stack;
 
 /**
  * @class: SingleLinkedList
@@ -40,16 +38,30 @@ public class SingleLinkedListDemo {
         // 删除节点
         list2.delete(1);
         list2.delete(2);
-        list2.delete(3);
-        list2.delete(4);
-        list2.delete(5);
         list2.list();
+
+        // 获取节点数
+        System.out.println("有效节点长度：" + SingleLinkedList.getLength(list2.getHead()));
+        // 获取倒数第一个
+        System.out.println(SingleLinkedList.getIndexNode(list2.getHead(),3));
+        // 单链表的反转
+        list.list();
+        SingleLinkedList.reverse(list.getHead());
+        System.out.println("单链表反转=============");
+        list.list();
+        // 倒序打印链表
+        System.out.println("===============");
+        SingleLinkedList.reversePrint(list.getHead());
     }
 }
 
 class SingleLinkedList {
     // 先初始化一个头节点,头节点不要动，不存放具体的数据
     private HeroNode head = new HeroNode(0, "", "");
+
+    public HeroNode getHead() {
+        return head;
+    }
 
     // 添加节点到单向链表
     // 当不考虑编号顺序时，
@@ -156,4 +168,73 @@ class SingleLinkedList {
         System.out.println("要删除的节点不存在====" + no);
     }
 
+    // 获取单链表的节点的个数（如果带头节点，需求不统计头节点）
+    public static int getLength(HeroNode head){
+        if (head.next == null){
+            return 0;
+        }
+        int length = 0;
+        HeroNode temp = head.next;
+        while (temp != null){
+            length++;
+            temp = temp.next;
+        }
+        return length;
+    }
+
+    // 查找链表中倒数第K个节点
+    // 1、编写一个方法，接收head节点和index；
+    // 2、index表示倒数第几个节点
+    // 3、先把链表遍历一遍、得到链表长度，得到之后从第一个开始遍历size-index就可以得到
+
+    public static HeroNode getIndexNode(HeroNode head,int index){
+        if (head.next == null){
+            return null;
+        }
+        int size = getLength(head);
+        if (index <= 0 || index >= size){
+            return null;
+        }
+        HeroNode temp = head.next;
+        for (int i = 0;i<size-index;i++){
+            temp = temp.next;
+        }
+        return temp;
+    }
+
+    // 取出原来每个节点到新链表的第一个，最后原来的head指向新的链表的第一个
+    public static void reverse(HeroNode head){
+        if (head.next == null || head.next.next == null){
+            return;
+        }
+        HeroNode temp = head.next;
+        HeroNode next = null;
+        HeroNode reverseHead = new HeroNode(0,"","");
+        while (temp != null){
+            next = temp.next; // 暂存当前节点的下一个节点
+            temp.next = reverseHead.next;// 将下一个节点指向新链表的最前端
+            reverseHead.next = temp; // 新链表的头指向节点
+            temp = next; // 后移
+        }
+        // 重指向
+        head.next = reverseHead.next;
+    }
+
+    public static void reversePrint(HeroNode head){
+        if (head.next == null){
+            return;
+        }
+
+        Stack<HeroNode> stack = new Stack<>();
+        HeroNode temp = head.next;
+        while (temp != null){
+            stack.push(temp);
+            temp = temp.next;
+        }
+        // 打印栈节点
+        stack.forEach(System.out::println);
+        while (stack.size() > 0 ){
+            System.out.println(stack.pop());
+        }
+    }
 }
