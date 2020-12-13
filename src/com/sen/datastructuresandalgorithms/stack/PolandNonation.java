@@ -3,7 +3,6 @@ package com.sen.datastructuresandalgorithms.stack;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
-import java.util.concurrent.CountDownLatch;
 
 /**
  * @class: PolandNonation
@@ -14,12 +13,12 @@ import java.util.concurrent.CountDownLatch;
 public class PolandNonation {
 
     public static void main(String[] args) {
-        String suffixExpression = " 3 4 + 5 * 6 - ";
+        String suffixExpression = " 12 2 3 + 4 * + 5 - ";
         System.out.println(calculate(getListString(suffixExpression)));
     }
 
     public static List<String> getListString(String suffixExpression){
-        return Arrays.asList(suffixExpression.split(" "));
+        return Arrays.asList(suffixExpression.trim().split(" "));
     }
 
     public static int calculate(List<String> ls){
@@ -55,7 +54,6 @@ public class PolandNonation {
                     res = num1 / num2;
                     stack.push(String.valueOf(res));
                 }
-
             }
         }
         return Integer.parseInt(stack.pop());
