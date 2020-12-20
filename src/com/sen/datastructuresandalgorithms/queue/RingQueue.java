@@ -1,4 +1,4 @@
-package com.sen.datastructuresandalgorithms;
+package com.sen.datastructuresandalgorithms.queue;
 
 /**
  * @ClassName RingQueue
